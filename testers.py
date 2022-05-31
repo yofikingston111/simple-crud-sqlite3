@@ -97,3 +97,25 @@ def update_data_siswa(id, nama):
 
 #update data
 update_data_siswa(2, 'kiplirbg')
+
+#delete data
+def hapus_data_siswa(id):
+    try:
+        sqliteConnection = sqlite3.connect('database_siswa.db')
+        cursor = sqliteConnection.cursor()
+        print("Connected to SQlite")
+
+        sql_update_query = """DELETE from data_siswa where id = ?"""
+        cursor.execute(sql_update_query, (id, ))
+        sqliteConnection.commit()
+        print("Hapus Data Sukses")
+
+        cursor.close()
+    except sqlite3.Error as error:
+        print("gagal terkoneksi ke tabel", error)
+    finally:
+        if (sqliteConnection):
+            sqliteConnection.close()
+            print("koneksi  SQlite Selesai")
+
+hapus_data_siswa(2)
